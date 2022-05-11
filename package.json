@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "~13.3.6",
     "@angular/router": "~13.3.6",
     "@ng-bootstrap/ng-bootstrap": "^12.1.1",
+    "@ngneat/hot-toast": "^4.1.0",
+    "@ngneat/overview": "^3.0.0",
     "@popperjs/core": "^2.10.2",
     "autoprefixer": "10.4.5",
     "bootstrap": "^5.1.3",
@@ -46,6 +48,11 @@
     "parserOptions": {
       "project": "./tsconfig.json"
     },
-    "extends": ["./node_modules/ts-standard/eslintrc.json"]
+    "extends": [
+      "./node_modules/ts-standard/eslintrc.json"
+    ],
+    "rules": {
+      "no-return-assign": "off"
+    }
   }
 }

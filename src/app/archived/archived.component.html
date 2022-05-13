@@ -1,0 +1,10 @@
+<app-list *ngIf="news && news.length" 
+  [news]="news"
+  [loading]="loading"
+  [button]="buttonNews"
+  (onClick)="deleteNews($event)">
+</app-list>
+
+<app-no-data *ngIf="!loading && !news?.length"
+[message]="noArchivedNewsMessage">
+</app-no-data>

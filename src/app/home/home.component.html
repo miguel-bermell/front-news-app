@@ -1,0 +1,22 @@
+<app-no-data
+  *ngIf="!loading && !news?.length">
+</app-no-data>
+
+<section class="home">
+
+  <app-list *ngIf="news && news.length" 
+    [news]="news"
+    [loading]="loading"
+    (onClick)="archiveNews($event)">
+  </app-list>
+
+  <aside class="home__form">
+    <h3>Añadir nueva noticia</h3>
+    <app-form-news [form]="newsForm" [submitted]="formSubmitted"></app-form-news>
+    <button *ngIf="newsForm.controls.length" (click)="onSubmit()" type="button" class="btn btn-dark w-100">
+      Guardar
+      <i *ngIf="loadingForm" class="spinner-grow spinner-grow-sm ms-2" role="status"></i>
+    </button>
+  </aside>
+
+</section>

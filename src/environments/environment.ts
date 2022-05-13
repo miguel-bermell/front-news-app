@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   appName: 'News App',
   projectUrl: 'http://localhost:4200',
-  apiUrl: 'http://127.0.0.1',
-};
+  apiUrl: 'http://127.0.0.1:3000'
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,0 +1,27 @@
+<ng-container *ngFor="let news of news; index as i">
+  <a class="news-article" [routerLink]="['/noticia/', news.id]">
+    <picture>
+      <img decoding="async" [src]="news.image" [alt]="news.title" FailImage>
+    </picture>
+    <div class="news-article__content">
+      <h2 class="text-truncate">{{ news.description }}</h2>
+      <div class="news-article__content--info">
+        <time [dateTime]="news.date | date">{{ news.date | date }}</time>
+        <span> | {{ news.author }} </span>
+        <button 
+          (click)="onClickButton($event, news.id)" 
+          class="btn btn-sm"
+          type="button"
+          [disabled]="loading"
+          [ngClass]="button.classColor">
+          {{ button.text }}
+          <i 
+            *ngIf="loading && itemSelected === news.id" 
+            class="spinner-grow spinner-grow-sm ms-2" 
+            role="status">
+          </i>
+        </button>
+      </div>
+    </div>
+  </a>
+</ng-container>

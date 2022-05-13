@@ -1,0 +1,24 @@
+.news-form {
+  padding: 20px 35px;
+  
+  & form {
+    position: relative;
+  }
+
+  &__delete {
+    position: absolute;
+    top: 0;
+    left: -35px;
+    cursor: pointer;
+    color: #C5031D;
+  }
+
+  .alert {
+    padding: .2rem 1rem;
+    margin-top: 5px;
+  }
+
+  .is-invalid {
+    border-color: #C5031D;
+  }
+}

@@ -1,0 +1,68 @@
+<section class="news-form">
+  <form *ngFor="let news of newsForm; index as i">
+    <ng-container [formGroup]="news">
+      <div class="mb-3">
+        <label for="title" class="form-label">Título *</label>
+        <input type="text" class="form-control" id="title" formControlName="title">
+        <div *ngIf="news.controls['title'].invalid && submitted && news.controls['title'].touched">
+          <div *ngIf="news.controls['title'].errors" class="alert alert-danger">
+           <div *ngIf="news.controls['title'].errors['required']">
+              El título es obligatorio
+           </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción *</label>
+        <input type="text" class="form-control" id="description" formControlName="description">
+        <div *ngIf="news.controls['description'].invalid && submitted && news.controls['description'].touched">
+          <div *ngIf="news.controls['description'].errors" class="alert alert-danger">
+           <div *ngIf="news.controls['description'].errors['required']">
+              La descripción es obligatoria
+           </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="content" class="form-label">Contenido *</label>
+        <textarea class="form-control" id="content" formControlName="content"></textarea>
+        <div *ngIf="news.controls['content'].invalid && submitted && news.controls['content'].touched">
+          <div *ngIf="news.controls['content'].errors" class="alert alert-danger">
+           <div *ngIf="news.controls['content'].errors['required']">
+              El contenido es obligatorio
+           </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3 input-group">
+        <label for="image" class="input-group-text"><i class="fas fa-image me-2"></i>Imagen</label>
+        <input 
+          style="display: none;" 
+          type="file" accept="image/*" 
+          class="form-control" 
+          id="image" 
+          (change)="onFileChange($event, i)">
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Autor *" 
+          formControlName="author"
+          [ngClass]="{'is-invalid': news.controls['author'].invalid && submitted && news.controls['author'].touched}">
+      </div>
+      <div (click)="removeNewsItem(i)" class="news-form__delete">
+        <i class="fas fa-trash"></i>
+      </div>
+    </ng-container>
+  </form>
+  <div class="mt-3">
+    <button (click)="addNewsItem()" class="btn btn-light" type="button">
+      <i class="fas fa-plus"></i>
+      <ng-container *ngIf="newsForm.length">
+        Agregar otra noticia
+      </ng-container>
+      <ng-container *ngIf="!newsForm.length">
+        Agregar noticia
+      </ng-container>
+    </button>
+  </div>
+</section>

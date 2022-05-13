@@ -1,0 +1,27 @@
+.navbar-nav  {
+
+  gap: 15px;
+
+  & .nav-item {
+    position: relative;
+  }
+
+
+  & a.active-link {
+
+    color: #1d1d1d ;
+    font-weight: 600;
+
+    &::after{    
+      content: " ";
+      height: 2px;
+      width: 100%;
+      background: #C5031D;
+      position: absolute;
+      right: 0;
+      bottom: 5px;
+      padding: 0 5px;
+    }
+  }
+
+}

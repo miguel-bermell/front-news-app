@@ -1,0 +1,16 @@
+<header class="article-header">
+  <picture>
+    <img decoding="async" [src]="news?.image" [alt]="news.title" FailImage>
+  </picture>
+  <div class="article-header__info">
+    <h1>{{ news.title }}</h1>
+    <div class="article-header__info--details">
+      <time [dateTime]="news.date">{{ news.date | date }}</time>
+      <span> · {{ news.author }}</span>
+      <span *ngIf="news.archiveDate">Archivada</span>
+    </div>
+  </div>
+</header>
+<div class="article-content">
+  <p>{{ news.content }}</p>
+</div>

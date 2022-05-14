@@ -1,17 +1,17 @@
 # Front Angular 13 - News App
 
-## Funcionalidad
+## Functionality
 
-- Añadir nuevas noticias
-- Archivar noticias
-- Eliminar noticias
+- Add new news
+- Archive news
+- Delete news
 
-## Librerías
+## Dependencies
 
 - [hot-toast](https://github.com/ngneat/hot-toast)
 - [bootstrap]
 
-### Formulario
+## Form
 
 `FormArray→`
 - input title: `required`
@@ -20,7 +20,7 @@
 - input content: `required`
 - input image
 
-## Rutas
+## Routes
 
 |    Path | Module                                        |
 | --------:     | --------------------------------------- |

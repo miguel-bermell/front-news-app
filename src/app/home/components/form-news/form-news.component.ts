@@ -30,7 +30,7 @@ export class FormNewsComponent {
     this.form.push(newsItem)
   }
 
-  onFileChange (event: Event, index: number): void {
+  onFileChange (event: Event): void {
     const file = (event.target as HTMLInputElement).files as FileList
 
     if (file.length <= 0) return
@@ -41,9 +41,7 @@ export class FormNewsComponent {
     }
 
     const fileToUpload = file[0]
-    const form = this.newsForm[index]
-    const formControl = form.get('image') as FormControl
-    formControl.setValue(fileToUpload)
+    this.newsForm[this.newsForm.length - 1].get('image')?.setValue(fileToUpload)
   }
 
   removeNewsItem (index: number): void {

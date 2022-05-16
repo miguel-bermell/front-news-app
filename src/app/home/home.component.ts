@@ -68,15 +68,14 @@ export class NewsComponent implements OnInit, OnDestroy {
       return
     }
 
-    const formDataArrays: FormData[] = []
-
-    this.newsForm.value.forEach(({ title, content, image, author, description }: News) => {
-      formDataArrays.push(new FormData())
-      formDataArrays[formDataArrays.length - 1].append('title', title)
-      formDataArrays[formDataArrays.length - 1].append('content', content)
-      formDataArrays[formDataArrays.length - 1].append('image', image as unknown as File)
-      formDataArrays[formDataArrays.length - 1].append('author', author)
-      formDataArrays[formDataArrays.length - 1].append('description', description)
+    const formDataArrays: FormData[] = this.newsForm.value.map(({ title, content, image, author, description }: News) => {
+      const formData = new FormData()
+      formData.append('title', title)
+      formData.append('content', content)
+      formData.append('image', image as unknown as File)
+      formData.append('author', author)
+      formData.append('description', description)
+      return formData
     })
 
     this.addNews(formDataArrays)

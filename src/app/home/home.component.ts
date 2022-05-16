@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core'
-import { ErrorResponse, News } from '../interfaces'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { ApiResponse, ErrorResponse, News } from '../interfaces'
 import { NotifyService } from '../services/notify.service'
 import { NewsService } from '../services/news.service'
 import { FormArray } from '@angular/forms'
-
+import { Observable, Subject, takeUntil, from, concatMap, takeLast } from 'rxjs'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class NewsComponent implements OnInit {
+export class NewsComponent implements OnInit, OnDestroy {
   constructor (
     private readonly newsService: NewsService,
     private readonly notifyService: NotifyService
@@ -21,8 +21,15 @@ export class NewsComponent implements OnInit {
   public formSubmitted: boolean = false
   public newsForm: FormArray = new FormArray([])
 
+  private readonly onDestroy$: Subject<boolean> = new Subject<boolean>()
+
   ngOnInit (): void {
     void this.getNews()
+  }
+
+  ngOnDestroy (): void {
+    this.onDestroy$.next(true)
+    this.onDestroy$.complete()
   }
 
   async getNews (): Promise<void> {
@@ -72,22 +79,31 @@ export class NewsComponent implements OnInit {
       formDataArrays[formDataArrays.length - 1].append('description', description)
     })
 
+    this.addNews(formDataArrays)
+  }
+
+  addNews (news: FormData[]): void {
     this.loadingForm = true
-    formDataArrays.forEach(formData => {
-      this.newsService.createNews(formData).subscribe({
-        next: results => {
+
+    const createNews$: Observable<ApiResponse<News>> = from(news)
+      .pipe(
+        concatMap(formData => this.newsService.createNews(formData)),
+        takeUntil(this.onDestroy$)
+      )
+
+    createNews$.pipe(takeLast(1))
+      .subscribe({
+        next: ({ message }) => {
+          this.notifyService.success(message)
           this.loadingForm = false
           this.formSubmitted = false
           this.newsForm.clear()
-          this.notifyService.success(results.message)
           void this.getNews()
         },
-        error: (err: ErrorResponse) => {
+        error: ({ error }: {error: ErrorResponse}) => {
+          this.notifyService.error(error.message)
           this.loadingForm = false
-          this.formSubmitted = false
-          this.notifyService.error(err.message)
         }
       })
-    })
   }
 }

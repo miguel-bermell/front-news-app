@@ -40,13 +40,7 @@ export class NewsService {
   }
 
   createNews (news: FormData): Observable<ApiResponse<News>> {
-    return new Observable((observer) => {
-      this.http.post<ApiResponse<News>>(`${environment.apiUrl}/news`, news)
-        .subscribe({
-          next: response => observer.next(response),
-          error: (error: HttpErrorResponse) => observer.error(error.error as ErrorResponse)
-        })
-    })
+    return this.http.post<ApiResponse<News>>(`${environment.apiUrl}/news`, news)
   }
 
   async deleteNews (id: string): Promise<ApiResponse<null>> {
